@@ -1,0 +1,38 @@
+a {
+  text-decoration: none;
+  color: $color-dark;
+}
+
+nav {
+  font-family: $font-family-headings;
+  height: 120px;
+  display: block;
+  h1 {
+    @include column(11);
+    font-size: 78pt;
+    font-weight: 100;
+    letter-spacing: -3px;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    img {
+      @include background-size(100%);
+    }
+    a {
+      margin-left: .05em
+    }
+  }
+
+  ul {
+    @include column(13, true);
+    margin-top: 3em;
+    border-bottom: 1px solid $color-dark;
+    li {
+      display: inline-block;
+      margin-left: 1.5em;
+      font-size: 32pt;
+      font-weight: 100;
+      letter-spacing: -1px;
+      -webkit-font-smoothing: antialiased;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@import 'icon/*.png';
+@include all-icon-sprites();
+.icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  span {
+    display: none;
+  }
+}

@@ -1,0 +1,25 @@
+section.tags,
+section.frameworks {
+  h2 {
+    @include column(3);
+    span {
+      padding-left: .5em;
+      vertical-align: bottom;
+    }
+    font-size: 11pt;
+    font-weight: 200;
+    display: inline-block;
+  }
+  ul {
+    @include column(11, true);
+    display: inline-block;
+    list-style-type: none;
+    margin-bottom: .75em;
+    li {
+      display: inline-block;
+      font-weight: 200;
+      font-size: 11pt;
+      margin-right: .5em;
+    }
+  }
+}

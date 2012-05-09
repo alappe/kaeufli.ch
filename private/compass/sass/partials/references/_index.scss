@@ -1,0 +1,35 @@
+section.reference {
+  margin-bottom: 2.5em;
+  h1 {
+    font-size: 18pt;
+    font-weight: 200;
+    letter-spacing: 2px;
+    padding-bottom: .1em;
+    line-height: 1.1em;
+  }
+  h2 {
+    @include column(3);
+    span {
+      padding-left: .5em;
+      vertical-align: bottom;
+    }
+    font-size: 11pt;
+    font-weight: 200;
+    display: inline-block;
+  }
+  p.short {
+    font-size: 11pt;
+    font-weight: 200;
+    padding-bottom: .3em;
+  }
+  ul.tags {
+    @include column(11, true);
+    display: inline-block;
+    li {
+      display: inline-block;
+      font-weight: 200;
+      font-size: 11pt;
+      margin-right: .5em;
+    }
+  }
+}

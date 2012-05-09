@@ -1,0 +1,16 @@
+a {
+  text-decoration: none;
+  color: $color-dark;
+}
+nav {
+  @include column(12);
+  text-align: left;
+}
+& > p {
+  @include column(12, true);
+  text-align: right;
+  .copyright {
+    font-family: cc;
+    letter-spacing: 3px;
+  }
+}

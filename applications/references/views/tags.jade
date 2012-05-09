@@ -1,0 +1,5 @@
+p Welcome to #{title}
+ul.tags
+  for tag in tags
+    li(class="tag")
+      a(href="/references/tags/#{tag.name}")= tag.name

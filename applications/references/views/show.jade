@@ -1,0 +1,29 @@
+article.reference
+  h1= title
+  section.short: != markdown(reference.attributes.body.short)
+  section.gallery
+    ul.gallery.thumbnails
+    - var thumbnails = thumbnails(reference)
+    for thumbnail in thumbnails
+      li.image
+        a.gallery.image(href=thumbnail.largeUri, title="Click to open image in large")
+          img(src=thumbnail.uri, alt="Gallery image ##{thumbnail.index}")
+  // Gallery…
+  section.long: != markdown(reference.attributes.body.long)
+  section.frameworks
+    h2
+      span.icon.icon-framework
+      | Frameworks:
+    ul.frameworks
+      for framework in reference.attributes.frameworks
+        li(class="framework")
+          a(href=framework.url, title="Go to #{framework.url}")= framework.name
+  section.tags
+    h2
+      span.icon.icon-tag
+      | Tagged with:
+    ul.tags
+      for tag in reference.attributes.tags
+        li.tag
+          a(href="/references/tags/#{tag}", title="Show all references tagged with »#{tag}«")= tag
+aside

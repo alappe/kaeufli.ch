@@ -1,0 +1,29 @@
+!!! html
+html(lang='en')
+  head
+    title kaeufli.ch – #{title}
+    meta(charset='utf8')
+    script(type='text/javascript', src='/javascripts/jquery-1.7.2.min.js')
+    script(type='text/javascript', src='/javascripts/form-references.js')
+    script(type='text/javascript', src='/javascripts/hyphenator/Hyphenator.js')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/screen.css')
+    link(rel='shortcut icon', href='/images/favicon.ico')
+    link(rel='icon', href='/images/favicon.ico')
+  body
+    if typeof(admin) != 'undefined'
+      .admin-warning
+          p admin
+    include header
+    #container!= body
+    include footer
+    script(type='text/javascript')
+      Hyphenator.config({
+        selectorfunction : function () {
+          return jQuery('#container p').toArray();
+          },
+        //remoteloading : false,
+        persistentconfig : true,
+        useCSS3hyphenation : true
+      });
+      Hyphenator.run();

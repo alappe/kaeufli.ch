@@ -1,0 +1,12 @@
+//- navigationItems = [{name: 'References', link: '/references'}, {name: 'Contact', link: '/contact'}]
+navigationItems = []
+header
+  nav
+    h1
+      img(src='/images/piggy_bank.svg', width=65, alt='kaeufli.ch logo')
+      a(href='/') kaeufli.ch
+    if navigationItems.length > 0
+      ul
+        for item in navigationItems
+          li
+            a(href=item.link)= item.name
