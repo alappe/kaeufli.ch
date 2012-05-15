@@ -1,7 +1,6 @@
 # Module dependencies.
 express = require 'express'
 namespace = require 'express-namespace'
-#routes = require './routes'
 Backbone = require 'backbone'
 
 app = module.exports = express.createServer()
@@ -18,16 +17,19 @@ app.configure ->
 
 app.configure 'development', ->
   port = 3000
+  app.set 'port', port
   app.use express.errorHandler
     dumpExceptions: true
     showStack: true
 
 app.configure 'production', ->
   port = 3000
+  app.set 'port', port
   app.use express.errorHandler()
 
 app.configure 'testing', ->
   port = 3001
+  app.set 'port', port
   app.use express.errorHandler
     dumpExceptions: true
     showStack: true

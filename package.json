@@ -17,11 +17,12 @@
   "devDependencies": {
     "node-dev": "~0.2.2",
     "mocha": "~1.0.3",
-    "should": "~0.6.3"
+    "should": "~0.6.3",
+    "request": "~2.9.202"
   },
   "scripts": {
     "oldstart": "coffee server.coffee",
-    "test": "./node_modules/mocha/bin/mocha -G test/applications/references/models/*.coffee",
+    "test": "NODE_ENV=testing ./node_modules/mocha/bin/mocha -G test/*-test.coffee test/applications/references/models/*-test.coffee",
     "test-watch": "./node_modules/mocha/bin/mocha -w -G test/applications/references/models/*.coffee",
     "start": "NODE_ENV=development ./node_modules/node-dev/node-dev server.coffee"
   }
