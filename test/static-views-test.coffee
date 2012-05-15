@@ -15,6 +15,8 @@ describe 'Static Views', ->
     it 'contains centered placeholder', ->
       body.should.match /p class\=\"center\"/
       body.should.match /cooking/
+    it 'contains a link to imprint/', ->
+      body.should.match /href\=\"\/imprint\"/
 
   describe 'Imprint', ->
     body = null
