@@ -4,6 +4,7 @@ if module?.exports?
   nano = (require 'nano')('http://localhost:5984')
   fs = require 'fs'
   gm = require 'gm'
+  File = require "#{__dirname}/../models/file"
 
 module.exports = class Reference extends Backbone.Model
   @view: 'references'
@@ -14,9 +15,23 @@ module.exports = class Reference extends Backbone.Model
   dbName: "kaeuflich-#{process.env.NODE_ENV}"
   urlRoot: ->
     'http://localhost:5984/kaeuflich-development/'
+  idAttribute: '_id'
+  defaults:
+    published: false
+    name: 'EDIT ME'
+    slug: 'edit-me'
+    company: ''
+    type: 'reference'
+    tags: []
+    frameworks: []
+    id: ''
+    start: ''
+    end: ''
+    body:
+      short: ''
+      long: ''
 
   sync: (method, model, options) ->
-    console.log options
     switch method
       when 'create', 'update'
         @db().insert @.toJSON(), (error, body) =>
@@ -27,25 +42,53 @@ module.exports = class Reference extends Backbone.Model
             console.log "Setting rev to #{body.rev}"
             options.success @, body
       when 'delete'
-        console.log 'delete'
         @db().destroy (@get '_id'), (@get '_rev'), (error, body) =>
           if error and options.error?
             options.error @, error
           else if options.success?
             options.success @, body
 
-  uploadImages: (files) ->
-    console.log "#{files.images.length} images to upload…"
-    if files.images.length > 0
-      image = files.images.pop()
-      @uploadImage image, files, (error, body, remainingFiles) =>
-        console.log 'callback uploadImageS'
-        console.log error if error
-        console.log body
-        unless error
-          @set '_rev', body.rev
-          @uploadImages remainingFiles
+  # Adds an image
+  addImage: (request, data, callback) ->
+    Reference.uuid (error, uuid) =>
+      throw error if error
+      file = new File
+        type: request.header 'content-type'
+        name: uuid
+      fs.writeFile file.getFullPath(), data, 'binary', (error) =>
+        console.log 'writing ' + file.getFullPath()
+        throw error if error
+        @uploadImage file, callback
 
+  # Upload a single image in two variations: original and a thumbnail.
+  #
+  # @param [Object] file
+  # @param [Buffer] imageData
+  # @param [Object] callback
+  uploadImage: (file, callback) ->
+    file.resizeLarge =>
+      @readFile file.getFullPath(), (fsError, data) =>
+        @attachmentUpload (file.get 'filename'), data, (file.get 'type'), (error, body) =>
+          console.log 'uploaded master file, now thumbnail…'
+          @uploadThumbnail file, (error, body) ->
+            console.log 'callback uploadImage'
+            callback error, body
+
+  # Convert to thumbnail, then upload
+  #
+  # @param [Object] file
+  uploadThumbnail: (file, callback) ->
+    file.resizeThumbnail =>
+      @readFile file.getFullThumbnailPath(), (fsError, data) =>
+        console.log "Uploading #{file.getThumbnailName()}"
+        @attachmentUpload file.getThumbnailName(), data, (file.get 'type'), (error, body) ->
+          console.log 'callback uploadThumbnail'
+          callback error, body
+
+  # Asynchronous read the file
+  #
+  # @param [String] path
+  # @param [Object] callback
   readFile: (path, callback) ->
     fs.readFile path, (error, data) ->
       callback error, data
@@ -58,51 +101,15 @@ module.exports = class Reference extends Backbone.Model
       @set '_rev', body.rev unless body.error?
       callback error, body
 
-  # Upload a single image in two variations: original and a thumbnail.
-  uploadImage: (image, remainingFiles, callback) ->
-    @readFile image.path, (fsError, data) =>
-      Reference.uuid (uuidError, name) =>
-        @attachmentUpload name, data, image.type, (error, body) =>
-          console.log 'uploaded master file, now thumbnail…'
-          @uploadThumbnail name, image, remainingFiles, (error, body, remainingFiles) ->
-            console.log 'callback uploadImage'
-            callback error, body, remainingFiles
-
-#    fs.readFile path, (error, data) =>
-#      console.log error if error
-#      unless error
-#        db.attachment.insert id, name, data, type, rev, (err, body) =>
-#          unless error?
-#            console.log body
-#            @uploadThumbnail db, id, path, name, body.rev, remainingFiles, callback
-#            #callback error, body, remainingFiles
-
-  uploadThumbnail: (name, image, remainingFiles, callback) ->
-    name = "thumb-#{name}"
-    # TODO: FIXME
-    path = "/tmp/#{name}.png"
-    console.log "Resize #{image.path} to #{path}"
-    (gm image.path).thumb 200, 200, path, (gmError, stdout, stderr, command) =>
-      @readFile path, (fsError, data) =>
-        console.log "Uploading #{name}"
-        @attachmentUpload name, data, image.type, (error, body) ->
-          console.log 'callback uploadThumbnail'
-          callback error, body, remainingFiles
-
-  uploadThumbnailOld: (db, id, path, name, rev, remainingFiles, callback) ->
-    name = "/tmp/thumb-#{name}.png"
-    (gm path).thumb 200, 200, name, 60, (err, stdout, stderr, command) =>
-      unless err?
-        fs.readFile name, (error, data) =>
-          unless error?
-            db.attachment.insert id, "thumb-#{name}", data, 'image/png', {rev: rev}, (e, body) =>
-              unless e?
-                callback e, body, remainingFiles
-
-    # unless original?
-
   @all: (callback) ->
     @db().view @view, 'all', (error, body) ->
+      references = []
+      references = for row in body.rows
+        reference = new Reference row.value
+      callback error, references
+
+  @allPublished: (callback) ->
+    @db().view @view, 'allPublished', {descending: true}, (error, body) ->
       references = []
       references = for row in body.rows
         reference = new Reference row.value
@@ -125,37 +132,24 @@ module.exports = class Reference extends Backbone.Model
 
   @get: (slug, callback) ->
     @db().view @view, 'all', {key: slug}, (error, body) ->
-      referenceData = _.first body.rows
-      callback error, new Reference referenceData.value
+      if body.rows.length > 0
+        referenceData = _.first body.rows unless error
+        reference = new Reference referenceData.value
+      else
+        error = new Error 'cannot find reference'
+        reference = null
+      callback error, reference
+
+  @getById: (id, callback) ->
+    @db().get id, (error, body) ->
+      callback error, new Reference body
 
   @uuid: (callback) ->
     options =
       path: '_uuids'
     nano.request options, (error, body) ->
-      #console.log _.first body.uuids
       callback error, _.first body.uuids
 
-  # Parse from form data, converting some fields
-  #
-  # @param [Object] response
-  # @return null
-  parseForm: (response, callback) ->
-    parsed = _.extend {}, response.form
-    parsed.tags = @parseTags response.form.tags
-    @set parsed
-    callback() if callback?
-
-  # Parse a comma separated list of tags into an array of strings
-  #
-  # @param [String] tags
-  # @return [Array]
-  parseTags: (tagString) ->
-    if tagString is '' or tagString.match /^\s+$/
-      []
-    else
-      preliminary = tagString.split ','
-      tags = for tag in preliminary
-        tag = tag.replace /^\s+/, ''
-        tag = tag.replace /\s+$/, ''
-        # TODO: Replace me with posix classes, argh:
-        tag.replace /[^a-z0-9\.\-]/i, '-'
+  @save: (model, callback) ->
+    @db().insert model, null, (error, body) ->
+      callback error, body

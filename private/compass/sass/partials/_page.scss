@@ -72,6 +72,10 @@ body {
 	color: $color-dark;
       }
     }
+    // Full width for listing:
+    article.references {
+      @include column(24, true);
+    }
 
     article {
       @include column(14);
@@ -84,9 +88,13 @@ body {
 	@include typographyP();
       }
 
+      section.gallery {
+	@import 'partials/gallery';
+      }
+
       &.full {
 	@include column(24, true);
-	p.center {
+	.center {
 	  @include typographyP();
 	  text-align: center;
 	  margin: 1em 0;
@@ -98,6 +106,17 @@ body {
       @include column(8, true);
       p {
 	@include typographyP();
+      }
+      &.reference {
+	text-align: left;
+	margin-top: 58px; // height of h1 
+	p {
+	  text-align: left;
+	}
+	h2 {
+	  @include typographyH();
+	  font-size: 14pt;
+	}
       }
     }
   }

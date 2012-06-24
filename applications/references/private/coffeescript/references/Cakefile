@@ -1,0 +1,65 @@
+sourcePath = ''
+scriptPath = '../../../../../assets/js/'
+#testPath   = '../../../Tests/JavaScript/Tests/'
+
+application =
+  dest: "#{scriptPath}references.coffee"
+  src: [
+    'utility/includes'
+    'utility/license'
+    'utility/description'
+    'utility/namespace'
+    'model/reference'
+    'view/reference'
+    'templates/reference'
+    'router/app'
+    'starter'
+  ]
+
+{spawn, exec} = require 'child_process'
+util = require 'util'
+growl = require 'growl'
+fs = require 'fs'
+
+display = (message) ->
+  growl 'Compiled: ' + message
+displayError = (message) ->
+  growl 'ERROR: ' + message
+
+task 'combine', 'Combine all relevant individual files into one', (options) ->
+
+  # Compile the given source
+#   compile = (source, compileArguments) ->
+#     proc = spawn 'coffee', compileArguments
+#     proc.stderr.on 'data', (buffer) ->
+#       console.log buffer.toString()
+#     proc.stdout.on 'data', (buffer) ->
+#       if buffer.toString().match(/error/gi)
+#         displayError buffer.toString()
+#       else
+#         display buffer.toString()
+#       console.log buffer.toString()
+#     proc.on 'exit', (status) ->
+#       if status isnt 0
+#         growl 'Error—exit with code: ' + status
+#         process.exit(1)
+
+  # Write file
+  writeFile = (content, destination) ->
+    fs.writeFile destination, content.join('\n\n'), 'utf8', (err) ->
+      throw err if err
+    destination
+    
+  # Concatenate all files in 'application' and return one filename to compile
+  concatenate = ->
+    appContents = new Array remaining = application.src.length
+    for file, index in application.src then do (file, index) ->
+      #console.log 'Reading in ' + file
+      fs.readFile sourcePath + "#{file}.coffee", 'utf8', (err, fileContents) ->
+        throw err if err
+        appContents[index] = fileContents
+        if --remaining is 0
+          console.log 'done: ' + application.dest
+          writeFile appContents, application.dest
+          #compile application.dest, application.compileArguments
+  concatenate()

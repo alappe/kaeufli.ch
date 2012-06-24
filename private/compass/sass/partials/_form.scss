@@ -13,7 +13,7 @@ fieldset {
       display: block;
       width: 100%;
       height: 3em;
-      &.first .less {
+      &.first .icon-minus {
 	visibility: hidden;
       }
       &.template {
@@ -27,6 +27,36 @@ fieldset {
 	  width: 90%;
 	}
       }
+    }
+  }
+  textarea {
+    width: 98%;
+  }
+  .fade {
+    opacity: 0;
+  }
+}
+
+ul.images {
+  li.image {
+    display: inline-block;
+    width: 60px;
+  }
+}
+div.imageDrop {
+  min-height: 120px;
+  .dropText {
+    display: none;
+  }
+  &.hover {
+    ul.images {
+      display: none;
+    }
+    .dropText {
+      display: block;
+      width: 100%;
+      text-align: center;
+      height: 60px;
     }
   }
 }

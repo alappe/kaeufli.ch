@@ -1,14 +1,14 @@
 article.reference
   h1= title
   section.short: != markdown(reference.attributes.body.short)
+  // Gallery…
   section.gallery
     ul.gallery.thumbnails
-    - var thumbnails = thumbnails(reference)
-    for thumbnail in thumbnails
-      li.image
-        a.gallery.image(href=thumbnail.largeUri, title="Click to open image in large")
-          img(src=thumbnail.uri, alt="Gallery image ##{thumbnail.index}")
-  // Gallery…
+      - var thumbnails = thumbnails(reference)
+      for thumbnail in thumbnails
+        li.image
+          a.gallery.image(href=thumbnail.largeUri, title="Click to enlarge", rel='lightbox[gallery]')
+            img(src=thumbnail.uri, alt="Gallery image ##{thumbnail.index}", width="100", height="100")
   section.long: != markdown(reference.attributes.body.long)
   section.frameworks
     h2
@@ -26,4 +26,20 @@ article.reference
       for tag in reference.attributes.tags
         li.tag
           a(href="/references/tags/#{tag}", title="Show all references tagged with »#{tag}«")= tag
-aside
+aside.reference
+  - var dates = getDuration(reference)
+  h2 Short-Facts:
+  p Customer: 
+    = reference.attributes.company
+  p Duration: 
+    time(datetime="#{dates.startDate}")
+      = dates.startText
+    | —
+    time(datetime="#{dates.endDate}")
+      = dates.endText 
+  h2 Code:
+  if reference.attributes.repository
+    p
+      a(href="#{reference.attributes.repository}") Repository
+  else
+    p Sadly, this project produced no openly available code… ☹
