@@ -14,7 +14,7 @@ module.exports = class Reference extends Backbone.Model
   db: -> nano.db.use @dbName
   dbName: "kaeuflich-#{process.env.NODE_ENV}"
   urlRoot: ->
-    'http://localhost:5984/kaeuflich-development/'
+    "http://localhost:5984/kaeuflich-#{process.env.NODE_ENV}/"
   idAttribute: '_id'
   defaults:
     published: false
