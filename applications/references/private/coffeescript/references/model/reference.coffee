@@ -3,7 +3,6 @@ namespace 'References.Model', (exports) ->
     idAttribute: '_id'
 
     initialize: ->
-      console.log 'model init'
 
     # Essentially a wrapper around @save() but handles the
     # _rev property of the couchdb backend.

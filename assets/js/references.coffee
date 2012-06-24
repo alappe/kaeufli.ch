@@ -53,7 +53,6 @@ namespace 'References.Model', (exports) ->
     idAttribute: '_id'
 
     initialize: ->
-      console.log 'model init'
 
     # Essentially a wrapper around @save() but handles the
     # _rev property of the couchdb backend.
@@ -349,7 +348,6 @@ namespace 'References.Router', (exports) ->
       '': 'indexAction'
 
     initialize: ->
-      console.log 'router init'
 
     indexAction: ->
       reference = new top.References.Model.Reference()

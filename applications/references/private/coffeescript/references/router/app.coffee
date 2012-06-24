@@ -4,7 +4,6 @@ namespace 'References.Router', (exports) ->
       '': 'indexAction'
 
     initialize: ->
-      console.log 'router init'
 
     indexAction: ->
       reference = new top.References.Model.Reference()
