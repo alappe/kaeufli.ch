@@ -3,8 +3,8 @@ html(lang='en')
   head
     title kaeufli.ch – #{title}
     meta(charset='utf8')
-    != js('lightbox')
-    != js('references')
+    != js('all')
+    != js('hyphenation')
     //-link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/screen.css')
     link(rel='stylesheet', href='/lightbox2/stylesheets/lightbox.css')
@@ -18,13 +18,3 @@ html(lang='en')
     include header
     #container!= body
     include footer
-//-    script(type='text/javascript')
-//-      Hyphenator.config({
-//-        selectorfunction : function () {
-//-          return jQuery('#container p').toArray();
-//-          },
-//-        //remoteloading : false,
-//-        persistentconfig : true,
-//-        useCSS3hyphenation : true
-//-      });
-//-      Hyphenator.run();
