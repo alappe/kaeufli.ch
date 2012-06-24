@@ -12,7 +12,7 @@ routes = (app) ->
           console.log error
         else
           response.render "#{__dirname}/../views/index",
-            title: 'Express References'
+            title: 'References'
             references: references
 
     app.namespace '/tags', ->
