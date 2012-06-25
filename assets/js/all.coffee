@@ -1,2 +1,2 @@
-#= require lightbox
 #= require references
+#= require lightbox
