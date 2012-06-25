@@ -7,7 +7,7 @@ article.reference
       - var thumbnails = thumbnails(reference)
       for thumbnail in thumbnails
         li.image
-          a.gallery.image(href=thumbnail.largeUri, title="Click to enlarge", rel='lightbox[gallery]')
+          a.gallery.image(href=thumbnail.largeUri, title="Click to enlarge", rel="prefetch", data-lightbox="lightbox", data-lightbox-group="gallery")
             img(src=thumbnail.uri, alt="Gallery image ##{thumbnail.index}", width="100", height="100")
   section.long: != markdown(reference.attributes.body.long)
   section.frameworks
