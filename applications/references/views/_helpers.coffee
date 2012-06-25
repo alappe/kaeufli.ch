@@ -50,8 +50,8 @@ helpers = (app) ->
 
       date =
         startText: if startYear is endYear then "#{months[startMonth]}" else "#{months[startMonth]} #{startYear}"
-        startDate: start.toString 'yyyy-MM-dd'
+        startDate: startDate.toString 'yyyy-MM-dd'
         endText: "#{months[endMonth]} #{endYear}"
-        endDate: end.toString 'yyyy-MM-dd'
+        endDate: endDate.toString 'yyyy-MM-dd'
 
 module.exports = helpers
