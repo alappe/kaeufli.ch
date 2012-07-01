@@ -21,6 +21,7 @@ helpers = (app) ->
       thumbnails
     
     getDuration: (reference) ->
+      return {startText: '', startDate: null, endText: '', endDate: null} unless (reference.get 'start')? and (reference.get 'end')
       dateMatcher = /(\d{2})\.(\d{2})\.(\d{4})/
       start = reference.get 'start'
       end = reference.get 'end'
