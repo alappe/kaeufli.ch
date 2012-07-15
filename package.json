@@ -28,7 +28,7 @@
   },
   "scripts": {
     "oldstart": "coffee server.coffee",
-    "test": "NODE_ENV=testing ./node_modules/mocha/bin/mocha -G test/*-test.coffee test/applications/references/models/*-test.coffee test/applications/references/*-test.coffee",
+    "test": "NODE_ENV=testing ./node_modules/mocha/bin/mocha -G test/*-test.coffee test/applications/references/models/*-test.coffee test/applications/references/*-test.coffee test/applications/contact/models/*-test.coffee",
     "test-watch": "./node_modules/mocha/bin/mocha -w -G test/applications/references/models/*.coffee",
     "start": "NODE_ENV=development ./node_modules/node-dev/node-dev server.coffee"
   }
