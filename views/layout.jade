@@ -3,8 +3,8 @@ html(lang='en')
   head
     title kaeufli.ch – #{title}
     meta(charset='utf8')
-    != js('all')
-    != js('hyphenation')
+    != js('all', {async: true})
+    != js('hyphenation', {async: true})
     //-link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/screen.css')
     != css('lightbox')

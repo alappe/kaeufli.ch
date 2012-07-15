@@ -15,8 +15,8 @@
     "markdown-js": "0.0.3",
     "restler": "~2.0.1",
     "buffertools": "~1.0.9",
-    "connect-assets": "~2.2.1",
-    "connect-couchdb": "~0.2.4"
+    "connect-assets": "~2.3.0",
+    "connect-couchdb": "~0.2.4",
     "nodemailer": "~0.3.20"
   },
   "devDependencies": {
