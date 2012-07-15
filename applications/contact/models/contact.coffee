@@ -16,10 +16,12 @@ module.exports = class Contact extends Backbone.Model
 
   formatAsHTML: ->
     """
+    <html>
     Name: #{@get 'name'}
     eMail: #{@get 'email'}
     Inquiry:
       #{@get 'inquiry'}
+    </html>
     """
 
   handle: (callback) ->
