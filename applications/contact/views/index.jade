@@ -1,0 +1,14 @@
+article.contact
+  h1= title
+  form(method='POST', action='#')
+    fieldset
+      label
+        span Name:
+        input(type='text', name='name', placeholder='John Doe', required)
+      label
+        span eMail:
+        input(type='email', name='email', placeholder='j.doe@example.net', required)
+      label
+        span Inquiry:
+        textarea(rows='30', cols='30', name='inquiry', placeholder='Your message…', required)
+      button(type='submit') Send

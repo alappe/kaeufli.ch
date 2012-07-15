@@ -52,6 +52,7 @@ app.configure 'testing', ->
 # Routes
 (require './routes')(app)
 (require './applications/references/routes')(app)
+(require './applications/contact/routes')(app)
 
 app.listen port, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
