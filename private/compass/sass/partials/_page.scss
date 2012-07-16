@@ -1,22 +1,22 @@
 body {
 
-  background-color: $color-light;
-  font-family: $font-family;
+	background-color: $color-light;
+	font-family: $font-family;
 
-  #{headings(all)} {
-    font-family: $font-family-headings;
-    color: $color-dark;
-  }
+	#{headings(all)} {
+		font-family: $font-family-headings;
+		color: $color-dark;
+}
 
-  .admin-warning {
-    height: 40px;
-    /*
-    FIXME TODO… there has to be a better way…
-    background-color: red;
-    @include background(
-      //linear-gradient(left top, $color-dark, $color-light)
-      //linear-gradient(100% 0%, 0% 100%,
-      linear-gradient(top left,
+.admin-warning {
+	height: 40px;
+	/*
+	FIXME TODO… there has to be a better way…
+	background-color: red;
+	@include background(
+	//linear-gradient(left top, $color-dark, $color-light)
+	//linear-gradient(100% 0%, 0% 100%,
+	linear-gradient(top left,
 	transparent,
 	color-stop(0.15, transparent),
 	color-stop(0.15, $color-dark),
@@ -26,108 +26,109 @@ body {
 	color-stop(0.65, $color-dark),
 	$color-dark,
 	ottom right)
-    @include background-size(50px, 50px);
-    );
-    */
-    background-color: $color-light;
-    background-image: -webkit-gradient(linear, 100% 0%, 0% 100%, 
-      from(transparent), 
-      color-stop(0.15, transparent),  
-      color-stop(0.15, $color-dark), 
-      color-stop(0.50, $color-dark), 
-      color-stop(0.50, transparent), 
-      color-stop(0.65, transparent),
-      color-stop(0.65, $color-dark),  
-      to($color-dark));
-      ffbackground-color: blue;
-      -webkit-background-size: 50px 50px;
-    p {
-      @include border-bottom-left-radius();
-      @include border-bottom-right-radius();
-      padding: 5px;
-      width: 200px;
-      margin: 0 auto;
-      background: white;
-      text-align: center;
-    }
-  }
-
-  header {
-    @include container;
-    @import 'partials/header';
-  }
-
-  #container {
-    @include container;
-
-    form {
-      @import 'partials/form';
-    }
-
-    article.references,
-    article.reference {
-      @import 'partials/references';
-      a {
-	text-decoration: none;
-	color: $color-dark;
-      }
-    }
-    // Full width for listing:
-    article.references {
-      @include column(24, true);
-    }
-
-    article {
-      @include column(14);
-      @include append(2);
-      h1 {
-	@include typographyH();
-	font-size: 32pt;
-      }
-      p {
-	@include typographyP();
-      }
-
-      section.gallery {
-	@import 'partials/gallery';
-      }
-
-      &.full {
-	@include column(24, true);
-	.center {
-	  @include typographyP();
-	  text-align: center;
-	  margin: 1em 0;
-	  font-size: 120%;
-	}
-      }
-    }
-    aside {
-      @include column(8, true);
-      p {
-	@include typographyP();
-      }
-      &.reference {
-	text-align: left;
-	margin-top: 58px; // height of h1 
+	@include background-size(50px, 50px);
+	);
+	 */
+	background-color: $color-light;
+	background-image: -webkit-gradient(linear, 100% 0%, 0% 100%, 
+	from(transparent), 
+	color-stop(0.15, transparent),  
+	color-stop(0.15, $color-dark), 
+	color-stop(0.50, $color-dark), 
+	color-stop(0.50, transparent), 
+	color-stop(0.65, transparent),
+	color-stop(0.65, $color-dark),  
+	to($color-dark));
+	ffbackground-color: blue;
+	-webkit-background-size: 50px 50px;
 	p {
-	  text-align: left;
+		@include border-bottom-left-radius();
+		@include border-bottom-right-radius();
+		padding: 5px;
+		width: 200px;
+		margin: 0 auto;
+		background: white;
+		text-align: center;
 	}
-	h2 {
-	  @include typographyH();
-	  font-size: 14pt;
-	}
-      }
-    }
-  }
+}
 
-  footer {
-    @include container;
-    @import 'partials/footer';
-    border-top: 1px solid $color-dark;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    padding-top: .5em;
-    font-weight: 300;
-  }
+header {
+	@include container;
+	@import 'partials/header';
+}
+
+#container {
+	@include container;
+
+	form {
+		@import 'partials/form';
+	}
+
+	article.references,
+	article.reference {
+		@import 'partials/references';
+		a {
+			text-decoration: none;
+			color: $color-dark;
+		}
+	}
+	// Full width for listing:
+	article.references {
+		@include column(24, true);
+	}
+
+	article {
+		@include column(14);
+		@include append(2);
+		h1 {
+			@include typographyH();
+			font-size: 32pt;
+		}
+		p {
+			@include typographyP();
+		}
+
+		section.gallery {
+			@import 'partials/gallery';
+		}
+
+		&.full {
+			@include column(24, true);
+			.center {
+				@include typographyP();
+				text-align: center;
+				margin: 1em 0;
+				font-size: 120%;
+}
+		}
+	}
+	aside {
+		@include column(8, true);
+		p {
+			@include typographyP();
+		}
+		&.reference,
+		&.contact {
+			text-align: left;
+			margin-top: 58px; // height of h1 
+			p {
+				text-align: left;
+			}
+			h2 {
+				@include typographyH();
+				font-size: 14pt;
+			}
+		}
+	}
+}
+
+footer {
+	@include container;
+	@import 'partials/footer';
+	border-top: 1px solid $color-dark;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	padding-top: .5em;
+	font-weight: 300;
+}
 }
