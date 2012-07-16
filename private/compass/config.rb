@@ -27,3 +27,5 @@ relative_assets = true
 
 # Use growl notification after compile
 require "compass-growl"
+
+cache = false
