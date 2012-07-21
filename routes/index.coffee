@@ -8,4 +8,13 @@ routes = (app) ->
     response.render 'imprint'
       title: 'Imprint'
 
+  app.get '/robots.txt', (request, response) ->
+    robot = """
+    User-agent: *
+    Disallow:/references/admin/
+    """
+
+    response.contentType 'text/plain'
+    response.send robot, 200
+
 module.exports = routes
