@@ -2,3 +2,12 @@
   'cc',
   font-files('cc-icons.ttf', 'ttf')
 );
+
+@include font-face(
+	'DejaVuSansMono',
+	font-files(
+		'DejaVuSansMono-webfont.woff', woff,
+		'DejaVuSansMono-webfont.ttf', opentype
+	),
+	'DejaVuSansMono-webfont.eot'
+);

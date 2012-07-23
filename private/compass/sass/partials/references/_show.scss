@@ -20,6 +20,21 @@ section.frameworks {
       font-weight: 200;
       font-size: 11pt;
       margin-right: .5em;
+			margin-top: 0;
     }
   }
+}
+
+ul {
+	margin-bottom: 1em;
+	li {
+		margin: 0 0 1em 1em;
+		list-style-type: square;
+		font-weight: 200;
+	}
+}
+
+code {
+	font-family: DejaVuSansMono,monospace;
+	margin: 5px;
 }
