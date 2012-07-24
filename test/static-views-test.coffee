@@ -30,3 +30,17 @@ describe 'Static Views', ->
       body.should.match /Andreas Lappe/
     it 'contains something about google analytics', ->
       body.should.match /google analytics/i
+
+  describe 'robots.txt', ->
+    body = null
+    response = null
+    before (done) ->
+      options = uri: "http://localhost:#{app.settings.port}/robots.txt"
+      request options, (error, _response, _body) ->
+        body = _body
+        response = _response
+        done()
+    it 'contains User-agent', ->
+      body.should.match /User-agent/
+    it 'has Content-Type set to »text/plain«', ->
+      response.headers['content-type'].should.match /text\/plain/

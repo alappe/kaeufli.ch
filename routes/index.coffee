@@ -13,8 +13,6 @@ routes = (app) ->
     User-agent: *
     Disallow:/references/admin/
     """
-
-    response.contentType 'text/plain'
-    response.send robot, 200
+    response.send robot, 'Content-Type': 'text/plain', 200
 
 module.exports = routes
