@@ -12,9 +12,9 @@ describe 'Static Views', ->
       request options, (error, response, _body) ->
         body = _body
         done()
-    it 'contains centered placeholder', ->
-      body.should.match /p class\=\"center\"/
-      body.should.match /cooking/
+    it 'contains dummy intro', ->
+      body.should.match /<pre>/
+      body.should.match /Love your work/
     it 'contains a link to imprint/', ->
       body.should.match /href\=\"\/imprint\"/
 
