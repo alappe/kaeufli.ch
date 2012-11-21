@@ -17,6 +17,8 @@ describe 'Static Views', ->
       body.should.match /Love your work/
     it 'contains a link to imprint/', ->
       body.should.match /href\=\"\/imprint\"/
+    it 'contains a link to the atom feed', ->
+      body.should.match /application\/atom\+xml/
 
   describe 'Imprint', ->
     body = null
