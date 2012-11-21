@@ -21,6 +21,7 @@ routes = (app) ->
         if error
           console.log error
         else
+          response.contentType 'atom'
           response.render "#{__dirname}/../views/rss",
             layout: "#{__dirname}/../views/rsslayout"
             references: references

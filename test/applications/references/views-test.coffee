@@ -20,6 +20,28 @@ describe 'Views', ->
     it 'contains a link of tags', ->
       body.should.match /ul class="tags"/i
 
+  describe 'Atom Feed', ->
+    body = null
+    response = null
+    before (done) ->
+      options = uri: "http://localhost:#{app.settings.port}/references/feed.xml"
+      request options, (error, _response, _body) ->
+        body = _body
+        response = _response
+        done()
+    it 'has correct content-type', ->
+      response.headers['content-type'].should.equal 'application/atom+xml'
+    it 'contains xml preamble', ->
+      body.should.match /xml version='1.0' encoding='utf-8'/
+    it 'contains atom feed', ->
+      body.should.match /feed xmlns/
+    it 'contains entries', ->
+      body.should.match /entry/
+    it 'contains summary', ->
+      body.should.match /summary/
+    it 'contains correctly formatted dates', ->
+      body.should.match /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/
+
   describe 'Show', ->
     body = null
     before (done) ->
