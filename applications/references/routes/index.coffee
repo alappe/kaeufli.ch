@@ -1,6 +1,7 @@
 Reference = require "#{__dirname}/../models/reference"
 restler = require 'restler'
 buffertools = require 'buffertools'
+_ = require 'underscore'
 
 routes = (app) ->
   app.namespace '/references', ->
@@ -14,6 +15,16 @@ routes = (app) ->
           response.render "#{__dirname}/../views/index",
             title: 'References'
             references: references
+
+    app.get '/feed(\.xml)?', (request, response) ->
+      Reference.allPublished (error, references) ->
+        if error
+          console.log error
+        else
+          response.render "#{__dirname}/../views/rss",
+            layout: "#{__dirname}/../views/rsslayout"
+            references: references
+            latest: (_.first references).getISODate()
 
     app.namespace '/tags', ->
       # List of all tags

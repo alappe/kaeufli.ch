@@ -82,6 +82,10 @@ describe 'Reference', ->
     it 'has the right db-name', ->
       (Reference.dbName).should.equal 'kaeuflich-testing'
 
+  describe 'date', ->
+    it 'returns ISO date', ->
+      reference = new Reference start: '21.11.2012'
+      reference.getISODate().should.equal '2012-11-21T00:00:00Z'
   describe 'create', ->
     it 'initializes from hash', ->
       reference = new Reference {title: 'My Title'}

@@ -4,6 +4,7 @@ if module?.exports?
   nano = (require 'nano')('http://localhost:5984')
   fs = require 'fs'
   gm = require 'gm'
+  moment = require 'moment'
   File = require "#{__dirname}/../models/file"
 
 module.exports = class Reference extends Backbone.Model
@@ -100,6 +101,9 @@ module.exports = class Reference extends Backbone.Model
     @db().attachment.insert id, name, data, type, rev, (error, body) =>
       @set '_rev', body.rev unless body.error?
       callback error, body
+
+  # @return [String]
+  getISODate: -> (moment.utc (@get 'start'), 'DD.MM.YYYY').format 'YYYY-MM-DDTHH:mm:ss[Z]'
 
   @all: (callback) ->
     @db().view @view, 'all', (error, body) ->
