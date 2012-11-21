@@ -41,6 +41,8 @@ describe 'Views', ->
       body.should.match /summary/
     it 'contains correctly formatted dates', ->
       body.should.match /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/
+    it 'contains URI as id', ->
+      body.should.match /<id>http:\/\//
 
   describe 'Show', ->
     body = null
