@@ -4,10 +4,19 @@
 );
 
 @include font-face(
-	'DejaVuSansMono',
-	font-files(
-		'DejaVuSansMono-webfont.woff', woff,
-		'DejaVuSansMono-webfont.ttf', opentype
-	),
-	'DejaVuSansMono-webfont.eot'
+  'DejaVuSansMono',
+  font-files(
+    'DejaVuSansMono-webfont.woff', woff,
+    'DejaVuSansMono-webfont.ttf', opentype
+  ),
+  'DejaVuSansMono-webfont.eot'
+);
+
+@include font-face(
+  'FontAwesome',
+  font-files(
+    'fontawesome-webfont.woff', woff,
+    'fontawesome-webfont.ttf', opentype
+  ),
+  'fontawesome-webfont.eot'
 );
