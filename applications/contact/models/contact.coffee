@@ -36,10 +36,7 @@ module.exports = class Contact extends Backbone.Model
       callback error
 
   sendMail: (callback) ->
-    smtpTransport = mailer.createTransport 'sendmail',
-      args: [
-        '-f info@kaeufli.ch'
-      ]
+    smtpTransport = mailer.createTransport 'SMTP'
     mailOptions =
       from: 'info@kaeufli.ch'
       to: 'nd@kaeufli.ch'
