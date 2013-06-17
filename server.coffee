@@ -4,6 +4,7 @@ namespace = require 'express-namespace'
 Backbone = require 'backbone'
 ConnectCouchDB = (require 'connect-couchdb')(express)
 connectAssets = (require 'connect-assets')()
+marked = require 'marked'
 
 app = module.exports = express.createServer()
 port = null
@@ -48,6 +49,9 @@ app.configure 'testing', ->
 
 # Helpers
 (require './applications/references/views/_helpers')(app)
+console.log app.locals().markdown
+app.locals
+  markdown: (raw) -> marked raw
 
 # Routes
 (require './routes')(app)

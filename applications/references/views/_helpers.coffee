@@ -1,10 +1,7 @@
-markdown = require 'markdown-js'
-
-helpers = (app) ->
-  app.helpers
-    markdown: (text) -> markdown.encode text
-
+module.exports = helpers = (app) ->
+  app.locals
     thumbnails: (reference) ->
+      console.log reference
       thumbnails = []
       index = 1
       id = reference.get 'slug'
@@ -54,5 +51,3 @@ helpers = (app) ->
         startDate: startDate.toISOString().slice 0, 10
         endText: "#{months[endMonth]} #{endYear}"
         endDate: endDate.toISOString().slice 0, 10
-
-module.exports = helpers

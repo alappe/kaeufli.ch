@@ -4,8 +4,8 @@ article.reference
   // Gallery…
   section.gallery
     ul.gallery.thumbnails
-      - var thumbnails = thumbnails(reference)
-      for thumbnail in thumbnails
+      - var nails = thumbnails(reference)
+      for thumbnail in nails
         li.image
           a.gallery.image(href=thumbnail.largeUri, title="Click to enlarge", rel="prefetch", data-lightbox="lightbox", data-lightbox-group="gallery")
             img(src=thumbnail.uri, alt="Gallery image ##{thumbnail.index}", width="100", height="100")
