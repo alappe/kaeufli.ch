@@ -1,5 +1,4 @@
 Reference = require "#{__dirname}/../models/reference"
-restler = require 'restler'
 buffertools = require 'buffertools'
 _ = require 'underscore'
 
@@ -167,22 +166,13 @@ routes = (app) ->
 
     # Shows an image of a single reference
     app.get '/:title/images/:id/', (request, response) ->
+      # Get id from slug
       Reference.get request.params.title, (error, reference) ->
-        if error
-          console.log 'now here'
-          console.log error
-          response.send 404
+        if error?
+          response.statusCode = 404
+          response.end error.message
         else
-          image = (reference.get '_attachments')[request.params.id]
-          if image?
-            options =
-              decoding: 'buffer'
-            url = reference.url() + "/#{request.params.id}"
-            (restler.get url, options).on 'complete', (result) ->
-              response.contentType image.content_type
-              response.send result
-          else
-            console.log 'here'
-            response.send 404
+          # Pipe the image through…
+          reference.showImage (reference.get '_id'), request.params.id, response
 
 module.exports = routes

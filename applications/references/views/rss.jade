@@ -1,11 +1,14 @@
-updated=latest
-for reference in references
-  entry
-    title= reference.attributes.name
-    link(href="http://kaeufli.ch/references/#{reference.attributes.slug}", rel="alternate", type="text/html")
-    id http://kaeufli.ch/references/#{reference.attributes.slug}
-    updated= reference.getISODate()
-    summary= reference.attributes.body.short
-    author
-      name kaeufli.ch
-      email info@kaeufli.ch
+extends rsslayout
+
+block body
+  updated=latest
+  for reference in references
+    entry
+      title= reference.attributes.name
+      link(href="http://kaeufli.ch/references/#{reference.attributes.slug}", rel="alternate", type="text/html")
+      id http://kaeufli.ch/references/#{reference.attributes.slug}
+      updated= reference.getISODate()
+      summary= reference.attributes.body.short
+      author
+        name kaeufli.ch
+        email info@kaeufli.ch

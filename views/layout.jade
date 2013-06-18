@@ -1,4 +1,4 @@
-!!! html
+doctype 5
 html(lang='en')
   head
     title kaeufli.ch – #{title}
@@ -16,5 +16,6 @@ html(lang='en')
       .admin-warning
           p admin
     include header
-    #container!= body
+    #container
+      block body
     include footer

@@ -1,45 +1,47 @@
-article.reference
-  h1= title
-  section.short: != markdown(reference.attributes.body.short)
-  // Gallery…
-  section.gallery
-    ul.gallery.thumbnails
-      - var nails = thumbnails(reference)
-      for thumbnail in nails
-        li.image
-          a.gallery.image(href=thumbnail.largeUri, title="Click to enlarge", rel="prefetch", data-lightbox="lightbox", data-lightbox-group="gallery")
-            img(src=thumbnail.uri, alt="Gallery image ##{thumbnail.index}", width="100", height="100")
-  section.long: != markdown(reference.attributes.body.long)
-  section.frameworks
-    h2
-      span.icon.icon-framework
-      | Frameworks:
-    ul.frameworks
-      for framework in reference.attributes.frameworks
-        li(class="framework")
-          a(href=framework.url, title="Go to #{framework.url}")= framework.name
-  section.tags
-    h2
-      span.icon.icon-tag
-      | Tagged with:
-    ul.tags
-      for tag in reference.attributes.tags
-        li.tag
-          a(href="/references/tags/#{tag}", title="Show all references tagged with »#{tag}«")= tag
-aside.reference
-  - var dates = getDuration(reference)
-  h2 Short-Facts:
-  p Customer: 
-    = reference.attributes.company
-  p Duration: 
-    time(datetime="#{dates.startDate}")
-      = dates.startText
-    | —
-    time(datetime="#{dates.endDate}")
-      = dates.endText 
-  h2 Code:
-  if reference.attributes.repository
-    p
-      a(href="#{reference.attributes.repository}") Repository
-  else
-    p Sadly, this project produced no openly available code… ☹
+extends #{__dirname}/../../../../views/layout
+block body
+  article.reference
+    h1= title
+    section.short: != markdown(reference.attributes.body.short)
+    // Gallery…
+    section.gallery
+      ul.gallery.thumbnails
+        - var nails = thumbnails(reference)
+        for thumbnail in nails
+          li.image
+            a.gallery.image(href=thumbnail.largeUri, title="Click to enlarge", rel="prefetch", data-lightbox="lightbox", data-lightbox-group="gallery")
+              img(src=thumbnail.uri, alt="Gallery image ##{thumbnail.index}", width="100", height="100")
+    section.long: != markdown(reference.attributes.body.long)
+    section.frameworks
+      h2
+        span.icon.icon-framework
+        | Frameworks:
+      ul.frameworks
+        for framework in reference.attributes.frameworks
+          li(class="framework")
+            a(href=framework.url, title="Go to #{framework.url}")= framework.name
+    section.tags
+      h2
+        span.icon.icon-tag
+        | Tagged with:
+      ul.tags
+        for tag in reference.attributes.tags
+          li.tag
+            a(href="/references/tags/#{tag}", title="Show all references tagged with »#{tag}«")= tag
+  aside.reference
+    - var dates = getDuration(reference)
+    h2 Short-Facts:
+    p Customer: 
+      = reference.attributes.company
+    p Duration: 
+      time(datetime="#{dates.startDate}")
+        = dates.startText
+      | —
+      time(datetime="#{dates.endDate}")
+        = dates.endText 
+    h2 Code:
+    if reference.attributes.repository
+      p
+        a(href="#{reference.attributes.repository}") Repository
+    else
+      p Sadly, this project produced no openly available code… ☹

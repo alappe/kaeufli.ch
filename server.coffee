@@ -6,7 +6,7 @@ ConnectCouchDB = (require 'connect-couchdb')(express)
 connectAssets = (require 'connect-assets')()
 marked = require 'marked'
 
-app = module.exports = express.createServer()
+app = module.exports = express()
 port = null
 
 # couchdb session storage:
@@ -49,7 +49,6 @@ app.configure 'testing', ->
 
 # Helpers
 (require './applications/references/views/_helpers')(app)
-console.log app.locals().markdown
 app.locals
   markdown: (raw) -> marked raw
 
@@ -59,4 +58,4 @@ app.locals
 (require './applications/contact/routes')(app)
 
 app.listen port, ->
-  console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
+  console.log "Express server listening on port #{app.get 'port'} in #{app.settings.env}-mode"

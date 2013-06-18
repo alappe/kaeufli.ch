@@ -1,3 +1,6 @@
-article.references
-  h1= title
-  include partials/listReferences
+extends #{__dirname}/../../../../views/layout
+
+block body
+  article.references
+    h1= title
+    include partials/listReferences

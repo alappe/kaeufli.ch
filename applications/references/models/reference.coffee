@@ -61,6 +61,10 @@ module.exports = class Reference extends Backbone.Model
         throw error if error
         @uploadImage file, callback
 
+  # Show image
+  showImage: (docId, imageId, response) ->
+    (@db().attachment.get docId, imageId).pipe response
+
   # Upload a single image in two variations: original and a thumbnail.
   #
   # @param [Object] file

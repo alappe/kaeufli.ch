@@ -1,7 +1,6 @@
 module.exports = helpers = (app) ->
   app.locals
     thumbnails: (reference) ->
-      console.log reference
       thumbnails = []
       index = 1
       id = reference.get 'slug'
