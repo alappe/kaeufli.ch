@@ -1,9 +1,12 @@
-article.full
-  form.center(method='post')
-    label
-      span Username
-      input(type='text', name='username')
-    label
-      span Password
-      input(type='password', name='password')
-    button(value='login') Login
+extends #{__dirname}/../../../../../views/layout
+
+block body
+  article.full
+    form.center(method='post')
+      label
+        span Username
+        input(type='text', name='username')
+      label
+        span Password
+        input(type='password', name='password')
+      button(value='login') Login

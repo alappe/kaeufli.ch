@@ -1,26 +1,29 @@
-article.references
-  h1= title
-  for reference in references
-    section.reference(data-id=reference.attributes._id)
-      a(href="/references/#{reference.attributes.slug}", title="Show more details about »#{reference.attributes.name}«")
-        h1= reference.attributes.name
-         a(href='/references/admin/#{reference.attributes._id}')
-           span.icon.icon-edit
-        p.short= reference.attributes.body.short
-      h2
-        span.icon.icon-tag
-        | Tagged with:
-      ul.tags
-        for tag in reference.attributes.tags
-          li(class="tag")
-            if typeof(selectedTag) == 'undefined'
-              a(href="/references/tags/#{tag}", title="Show all references tagged with »#{tag}«")= tag
-            else
-              if tag == selectedTag
-                = tag
+extends #{__dirname}/../../../../../views/layout
+
+block body
+  article.references
+    h1= title
+    for reference in references
+      section.reference(data-id=reference.attributes._id)
+        a(href="/references/#{reference.attributes.slug}", title="Show more details about »#{reference.attributes.name}«")
+          h1= reference.attributes.name
+           a(href='/references/admin/#{reference.attributes._id}')
+             span.icon.icon-edit
+          p.short= reference.attributes.body.short
+        h2
+          span.icon.icon-tag
+          | Tagged with:
+        ul.tags
+          for tag in reference.attributes.tags
+            li(class="tag")
+              if typeof(selectedTag) == 'undefined'
+                a(href="/references/tags/#{tag}", title="Show all references tagged with »#{tag}«")= tag
               else
-                a(href="/references/tags/#{tag}")= tag
-aside
-  h1 New
-  | Add a
-  a(href='/references/admin/new') new reference
+                if tag == selectedTag
+                  = tag
+                else
+                  a(href="/references/tags/#{tag}")= tag
+  aside
+    h1 New
+    | Add a
+    a(href='/references/admin/new') new reference

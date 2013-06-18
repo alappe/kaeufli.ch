@@ -9,10 +9,11 @@ routes = (app) ->
       title: 'Imprint'
 
   app.get '/robots.txt', (request, response) ->
+    response.set 'Content-Type', 'text/plain'
     robot = """
     User-agent: *
     Disallow:/references/admin/
     """
-    response.send robot, 'Content-Type': 'text/plain', 200
+    response.send 200, robot
 
 module.exports = routes

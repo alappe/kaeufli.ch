@@ -115,7 +115,8 @@ describe 'Views', ->
           body = _body
           done()
       it 'redirects after creating a new reference', (done) ->
-        options = uri: "http://localhost:#{app.settings.port}/references/admin/new"
+        options =
+          uri: "http://localhost:#{app.settings.port}/references/admin/new"
         request options, (_error, _response, __body) ->
           _response.request._redirectsFollowed.should.equal 1
           __body.should.match /<div id="container">/

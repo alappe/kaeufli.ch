@@ -66,7 +66,7 @@ routes = (app) ->
           #console.log 'request done…'
           if error
             console.log error
-            response.send error.error
+            response.send error.message
             return
           else if headers and headers['set-cookie']
             response.cookie headers['set-cookie']
@@ -77,8 +77,8 @@ routes = (app) ->
 
       # Redirect if not authorized…
       app.all '/', (request, response, next) ->
-        authenticated = request.cookies.authsession
-        if authenticated
+        authenticated = request.cookies.AuthSession
+        if authenticated?
           next()
         else
           response.redirect "/references/admin/login?redirect=#{request.originalUrl}"
@@ -87,8 +87,8 @@ routes = (app) ->
       # Redirect if not authorized…
       # TODO: Find a way to combine the two .all routes…
       app.all '/*', (request, response, next) ->
-        authenticated = request.cookies.authsession
-        if authenticated
+        authenticated = request.cookies.AuthSession
+        if authenticated?
           next()
         else
           response.redirect "/references/admin/login?redirect=#{request.originalUrl}"
@@ -120,8 +120,9 @@ routes = (app) ->
           if error
             console.log error
           else
-            if request.headers.accept?.match /^application\/json/
-              response.contentType 'text/json'
+            accepted = request.accepted[0]
+            if accepted?.value is 'application/json'
+              response.set 'Content-Type', 'text/json'
               response.send (JSON.stringify reference.toJSON())
             else
               response.render "#{__dirname}/../views/admin/edit",
@@ -149,7 +150,6 @@ routes = (app) ->
           console.log imageData
           Reference.get request.params.title, (error, reference) ->
             reference.addImage request, imageData, (error, imageResponse) ->
-              console.log error
               response.contentType 'application/json'
               response.send imageResponse
       # Here ends the /admin area…

@@ -1,6 +1,9 @@
-article.tags
-  h1= title
-  ul.tags
-    for tag in tags
-      li.tag
-        a(href="/references/tags/#{tag.name}")= tag.name
+extends #{__dirname}/../../../../views/layout
+
+block body
+  article.tags
+    h1= title
+    ul.tags
+      for tag in tags
+        li.tag
+          a(href="/references/tags/#{tag.name}")= tag.name

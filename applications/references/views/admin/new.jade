@@ -1,61 +1,64 @@
-article
-  form(class='form references references-new', action='/references', method='post', enctype='multipart/form-data')
-    fieldset
-      legend Basics
-      input(type='hidden', name='_id', value=uuid)
-      label
-        span Published
-        input(type='checkbox', checked='false', name='published')
-      label
-        span Title
-        input(type='text', name='title')
-      label
-        span Slug
-        input(type='text', name='slug', readonly='readonly')
-      label
-        span Start
-        input(type='date', name='start')
-      label
-        span End
-        input(type='date', name='end')
-      label
-        span Company
-        input(type='text', name='company')
-    fieldset
-      legend Frameworks
-      ul.frameworks
-        li.framework.template
-          a.icon.less(href='#'): span -
-          label.first
-            span Name
-            input(type='text', name='frameworks[XX][name]')
-          label
-            span URL
-            input(type='text', name='frameworks[XX][url]')
-        li.framework.first
-          a.icon.less(href='#'): span -
-          label.first
-            span Name
-            input(type='text', name='frameworks[0][name]')
-          label
-            span URL
-            input(type='text', name='frameworks[0][url]')
-      a.icon.more(href='#'): span +
+extends #{__dirname}/../../../../../views/layout
 
-    fieldset
-      legend Images
-      ul.images
-        li.image.template
-          a.icon.less(href='#'): span -
-          label
-            span Image
-            input(type='file', name='images[XX]')
-        li.image.first
-          a.icon.less(href='#'): span -
-          label
-            span Image
-            input(type='file', name='images[0]')
-      a.icon.more(href='#'): span +
-    fieldset
-      legend Tags
-      textarea(name='tags')
+block body
+  article
+    form(class='form references references-new', action='/references', method='post', enctype='multipart/form-data')
+      fieldset
+        legend Basics
+        input(type='hidden', name='_id', value=uuid)
+        label
+          span Published
+          input(type='checkbox', checked='false', name='published')
+        label
+          span Title
+          input(type='text', name='title')
+        label
+          span Slug
+          input(type='text', name='slug', readonly='readonly')
+        label
+          span Start
+          input(type='date', name='start')
+        label
+          span End
+          input(type='date', name='end')
+        label
+          span Company
+          input(type='text', name='company')
+      fieldset
+        legend Frameworks
+        ul.frameworks
+          li.framework.template
+            a.icon.less(href='#'): span -
+            label.first
+              span Name
+              input(type='text', name='frameworks[XX][name]')
+            label
+              span URL
+              input(type='text', name='frameworks[XX][url]')
+          li.framework.first
+            a.icon.less(href='#'): span -
+            label.first
+              span Name
+              input(type='text', name='frameworks[0][name]')
+            label
+              span URL
+              input(type='text', name='frameworks[0][url]')
+        a.icon.more(href='#'): span +
+
+      fieldset
+        legend Images
+        ul.images
+          li.image.template
+            a.icon.less(href='#'): span -
+            label
+              span Image
+              input(type='file', name='images[XX]')
+          li.image.first
+            a.icon.less(href='#'): span -
+            label
+              span Image
+              input(type='file', name='images[0]')
+        a.icon.more(href='#'): span +
+      fieldset
+        legend Tags
+        textarea(name='tags')
