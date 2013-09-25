@@ -17,7 +17,8 @@
     "restler": "~2.0.1",
     "buffertools": "~1.1.1",
     "moment": "~2.0.0",
-    "express-namespace": "~0.1.1"
+    "express-namespace": "~0.1.1",
+    "newrelic": "~0.11.1"
   },
   "devDependencies": {
     "node-dev": "~2.0.1",

@@ -5,6 +5,7 @@ Backbone = require 'backbone'
 ConnectCouchDB = (require 'connect-couchdb')(express)
 connectAssets = (require 'connect-assets')()
 marked = require 'marked'
+newrelic = require 'newrelic'
 
 app = module.exports = express()
 port = null
